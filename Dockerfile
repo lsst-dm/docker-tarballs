@@ -26,4 +26,6 @@ RUN source ./loadLSST.bash; eups distrib install -vvv $PRODUCT -t $TAG \
   && ( find stack -maxdepth 5 -name tests -type d -exec rm -rf {} \; \
        > /dev/null 2>&1 || true ) \
   && ( find stack -maxdepth 5 -name doc -type d -exec rm -rf {} \; \
+       > /dev/null 2>&1 || true ) \
+  && ( find stack/ -maxdepth 5 -name src -type d -exec rm -rf {} \; \
        > /dev/null 2>&1 || true )
