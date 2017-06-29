@@ -23,7 +23,7 @@ RUN curl -sSL https://raw.githubusercontent.com/lsst/lsst/master/scripts/newinst
 RUN source ./loadLSST.bash; eups distrib install -vvv $PRODUCT -t $TAG \
   && ( find stack | xargs strip --strip-unneeded --preserve-dates \
        > /dev/null 2>&1 || true ) \
-  && ( find stack -name tests -type d -exec rm -rf {} \; \
+  && ( find stack -maxdepth 5 -name tests -type d -exec rm -rf {} \; \
        > /dev/null 2>&1 || true ) \
-  && ( find stack -name doc -type d -exec rm -rf {} \; \
+  && ( find stack -maxdepth 5 -name doc -type d -exec rm -rf {} \; \
        > /dev/null 2>&1 || true )
