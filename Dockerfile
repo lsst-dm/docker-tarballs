@@ -29,3 +29,5 @@ RUN source ./loadLSST.bash; eups distrib install -vvv $PRODUCT -t $TAG \
        > /dev/null 2>&1 || true ) \
   && ( find stack/ -maxdepth 5 -name src -type d -exec rm -rf {} \; \
        > /dev/null 2>&1 || true )
+
+RUN source ./loadLSST.bash; curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron | python
