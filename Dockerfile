@@ -18,7 +18,7 @@ RUN chown $LSST_USER:$LSST_USER $NEW_DIR
 USER $LSST_USER
 WORKDIR $NEW_DIR
 
-RUN curl -sSL https://raw.githubusercontent.com/lsst/lsst/master/scripts/newinstall.sh | bash -s -- -cbt
+RUN curl -sSL https://raw.githubusercontent.com/lsst/lsst/master/scripts/newinstall.sh | bash -s -- -cbtS
 
 RUN source ./loadLSST.bash; eups distrib install -vvv $PRODUCT -t $TAG \
   && ( find stack | xargs strip --strip-unneeded --preserve-dates \
