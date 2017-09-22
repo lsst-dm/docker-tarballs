@@ -2,7 +2,6 @@ FROM lsstsqre/centos:7-stackbase
 MAINTAINER sqre-admin
 
 ENV LSST_PYTHON_VERSION=3
-ENV EUPS_PKGROOT=https://eups.lsst.codes/stack/redhat/el7/gcc-system/miniconda3-4.2.12-7c8e67
 ENV NEW_DIR=/opt/lsst/software/stack
 ENV LSST_USER=lsst
 ENV PRODUCT=lsst_distrib
