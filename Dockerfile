@@ -1,10 +1,10 @@
 FROM lsstsqre/centos:7-stackbase
 MAINTAINER sqre-admin
 
-ENV LSST_PYTHON_VERSION=3
-ENV NEW_DIR=/opt/lsst/software/stack
-ENV LSST_USER=lsst
-ENV PRODUCT=lsst_distrib
+ARG LSST_PYTHON_VERSION=3
+ARG NEW_DIR=/opt/lsst/software/stack
+ARG LSST_USER=lsst
+ARG PRODUCT=lsst_distrib
 ARG TAG
 
 USER root
