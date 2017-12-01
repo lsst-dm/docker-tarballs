@@ -1,4 +1,4 @@
-FROM lsstsqre/centos:7-stackbase
+FROM docker.io/lsstsqre/centos:7-stackbase
 MAINTAINER sqre-admin
 
 ARG LSST_PYTHON_VERSION=3
