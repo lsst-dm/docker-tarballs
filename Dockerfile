@@ -1,5 +1,4 @@
 FROM docker.io/lsstsqre/centos:7-stackbase-devtoolset-6
-MAINTAINER sqre-admin
 
 ARG LSST_PYTHON_VERSION=3
 ARG NEW_DIR=/opt/lsst/software/stack
