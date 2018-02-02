@@ -27,7 +27,7 @@ WORKDIR $NEW_DIR
 
 RUN curl -sSL https://raw.githubusercontent.com/lsst/lsst/master/scripts/newinstall.sh | bash -s -- -cbtS
 
-RUN source ./loadLSST.bash; for prod in $EUPS_PRODUCT; do eups distrib install --no-server-tags -vvv $prod -t $EUP_TAG; done \
+RUN source ./loadLSST.bash; for prod in $EUPS_PRODUCT; do eups distrib install --no-server-tags -vvv $prod -t $EUPS_TAG; done \
   && ( find stack | xargs strip --strip-unneeded --preserve-dates \
        > /dev/null 2>&1 || true ) \
   && ( find stack -maxdepth 5 -name tests -type d -exec rm -rf {} \; \
