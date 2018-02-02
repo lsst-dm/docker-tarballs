@@ -3,11 +3,11 @@ FROM docker.io/lsstsqre/centos:7-stackbase-devtoolset-6
 ARG LSST_PYTHON_VERSION=3
 ARG NEW_DIR=/opt/lsst/software/stack
 ARG LSST_USER=lsst
-ARG PRODUCT=lsst_distrib
-ARG TAG
+ARG EUPS_PRODUCT=lsst_distrib
+ARG EUPS_TAG
 
-LABEL EUPS_PRODUCT=$PRODUCT \
-    EUPS_TAG=$TAG \
+LABEL EUPS_PRODUCT=$EUPS_PRODUCT \
+    EUPS_TAG=$EUPS_TAG \
     DOCKERFILE_GIT_BRANCH=$DOCKERFILE_GIT_BRANCH \
     DOCKERFILE_GIT_COMMIT=$DOCKERFILE_GIT_COMMIT \
     DOCKERFILE_GIT_URL=$DOCKERFILE_GIT_URL \
@@ -27,7 +27,7 @@ WORKDIR $NEW_DIR
 
 RUN curl -sSL https://raw.githubusercontent.com/lsst/lsst/master/scripts/newinstall.sh | bash -s -- -cbtS
 
-RUN source ./loadLSST.bash; for prod in $PRODUCT; do eups distrib install --no-server-tags -vvv $prod -t $TAG; done \
+RUN source ./loadLSST.bash; for prod in $EUPS_PRODUCT; do eups distrib install --no-server-tags -vvv $prod -t $EUP_TAG; done \
   && ( find stack | xargs strip --strip-unneeded --preserve-dates \
        > /dev/null 2>&1 || true ) \
   && ( find stack -maxdepth 5 -name tests -type d -exec rm -rf {} \; \
