@@ -25,9 +25,11 @@ RUN chown $LSST_USER:$LSST_USER $NEW_DIR
 USER $LSST_USER
 WORKDIR $NEW_DIR
 
-RUN curl -sSL https://raw.githubusercontent.com/lsst/lsst/master/scripts/newinstall.sh | bash -s -- -cbtS
+RUN curl -sSL https://raw.githubusercontent.com/lsst/lsst/master/scripts/newinstall.sh | bash -s -- -cbts
 
-RUN source ./loadLSST.bash; for prod in $EUPS_PRODUCT; do eups distrib install --no-server-tags -vvv $prod -t $EUPS_TAG; done \
+RUN source /opt/rh/devtoolset-6/enable && \
+    source ./loadLSST.bash; \
+    for prod in $EUPS_PRODUCT; do eups distrib install -vvv $prod -t $EUPS_TAG; done \
   && ( find stack | xargs strip --strip-unneeded --preserve-dates \
        > /dev/null 2>&1 || true ) \
   && ( find stack -maxdepth 5 -name tests -type d -exec rm -rf {} \; \
