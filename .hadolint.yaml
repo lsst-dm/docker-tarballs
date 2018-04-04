@@ -4,3 +4,5 @@ ignored:
   - DL3002
   # disable pinning apk package versions
   - DL3018
+  # disable following sourced files
+  - SC1091

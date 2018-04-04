@@ -17,24 +17,24 @@ LABEL EUPS_PRODUCT=$EUPS_PRODUCT \
 
 USER root
 
-RUN mkdir -p $NEW_DIR
-RUN groupadd $LSST_USER
-RUN useradd -g $LSST_USER -m $LSST_USER
-RUN chown $LSST_USER:$LSST_USER $NEW_DIR
+RUN mkdir -p "$NEW_DIR"
+RUN groupadd "$LSST_USER"
+RUN useradd -g "$LSST_USER" -m "$LSST_USER"
+RUN chown "${LSST_USER}:${LSST_USER}" "$NEW_DIR"
 
 USER $LSST_USER
 WORKDIR $NEW_DIR
 
 RUN curl -sSL https://raw.githubusercontent.com/lsst/lsst/master/scripts/newinstall.sh | bash -s -- -cbtS
 
-RUN source ./loadLSST.bash; for prod in $EUPS_PRODUCT; do eups distrib install --no-server-tags -vvv $prod -t $EUPS_TAG; done \
-  && ( find stack | xargs strip --strip-unneeded --preserve-dates \
+RUN source ./loadLSST.bash; for prod in $EUPS_PRODUCT; do eups distrib install --no-server-tags -vvv "$prod" -t "$EUPS_TAG"; done \
+  && ( find stack -exec strip --strip-unneeded --preserve-dates {} + \
        > /dev/null 2>&1 || true ) \
-  && ( find stack -maxdepth 5 -name tests -type d -exec rm -rf {} \; \
+  && ( find stack -maxdepth 5 -name tests -type d -exec rm -rf {} + \
        > /dev/null 2>&1 || true ) \
-  && ( find stack -maxdepth 5 -path "*doc/html" -type d -exec rm -rf {} \; \
+  && ( find stack -maxdepth 5 -path "*doc/html" -type d -exec rm -rf {} + \
        > /dev/null 2>&1 || true ) \
-  && ( find stack/ -maxdepth 5 -name src -type d -exec rm -rf {} \; \
+  && ( find stack/ -maxdepth 5 -name src -type d -exec rm -rf {} + \
        > /dev/null 2>&1 || true )
 
 RUN source ./loadLSST.bash; curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron | python
