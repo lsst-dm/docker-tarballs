@@ -1,0 +1,34 @@
+os: linux
+language: cpp
+matrix:
+  include:
+    - env: TEST=hadolint
+      services:
+        - docker
+      script: |
+        set -e
+        shopt -s globstar nullglob
+        CHECK=( **/Dockerfile )
+        [[ ${#CHECK[@]} -eq 0 ]] && exit
+        for f in "${CHECK[@]}"; do
+          docker run -ti -v$(pwd):$(pwd) -w $(pwd) \
+            hadolint/hadolint hadolint "$f"
+        done
+    - env: TEST=make
+      script: |
+        set -e
+        shopt -s globstar nullglob
+        CHECK=( **/Makefile )
+        [[ ${#CHECK[@]} -eq 0 ]] && exit
+        for f in "${CHECK[@]}"; do
+          ( set -e
+            cd $(dirname "$f")
+            echo "checking $f"
+            make --dry-run --warn-undefined-variables
+          )
+        done
+branches:
+  only:
+  - master
+notifications:
+  email: false
