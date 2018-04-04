@@ -1,0 +1,6 @@
+---
+ignored:
+  # disable USER root
+  - DL3002
+  # disable pinning apk package versions
+  - DL3018
