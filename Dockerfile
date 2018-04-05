@@ -1,4 +1,4 @@
-FROM docker.io/lsstsqre/centos:7-stackbase-devtoolset-6
+FROM lsstsqre/newinstall:latest
 
 ARG LSST_PYTHON_VERSION=3
 ARG NEW_DIR=/opt/lsst/software/stack
