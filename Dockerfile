@@ -15,18 +15,6 @@ LABEL EUPS_PRODUCT=$EUPS_PRODUCT \
     JENKINS_BUILD_ID=$JENKINS_BUILD_ID \
     JENKINS_BUILD_URL=$JENKINS_BUILD_URL
 
-USER root
-
-RUN mkdir -p "$NEW_DIR"
-RUN groupadd "$LSST_USER"
-RUN useradd -g "$LSST_USER" -m "$LSST_USER"
-RUN chown "${LSST_USER}:${LSST_USER}" "$NEW_DIR"
-
-USER $LSST_USER
-WORKDIR $NEW_DIR
-
-RUN curl -sSL https://raw.githubusercontent.com/lsst/lsst/master/scripts/newinstall.sh | bash -s -- -cbtS
-
 RUN source ./loadLSST.bash; for prod in $EUPS_PRODUCT; do eups distrib install --no-server-tags -vvv "$prod" -t "$EUPS_TAG"; done \
   && ( find stack -exec strip --strip-unneeded --preserve-dates {} + \
        > /dev/null 2>&1 || true ) \
