@@ -1,4 +1,5 @@
-FROM lsstsqre/newinstall:latest
+ARG BASE_IMAGE=lsstsqre/newinstall:latest
+FROM $BASE_IMAGE
 
 ARG LSST_PYTHON_VERSION=3
 ARG NEW_DIR=/opt/lsst/software/stack
