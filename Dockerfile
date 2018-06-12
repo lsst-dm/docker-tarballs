@@ -6,6 +6,7 @@ ARG NEW_DIR=/opt/lsst/software/stack
 ARG LSST_USER=lsst
 ARG EUPS_PRODUCT=lsst_distrib
 ARG EUPS_TAG
+ARG SHEBANGTRON_URL=https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron
 
 LABEL EUPS_PRODUCT=$EUPS_PRODUCT \
     EUPS_TAG=$EUPS_TAG \
@@ -26,4 +27,4 @@ RUN source ./loadLSST.bash; for prod in $EUPS_PRODUCT; do eups distrib install -
   && ( find stack/ -maxdepth 5 -name src -type d -exec rm -rf {} + \
        > /dev/null 2>&1 || true )
 
-RUN source ./loadLSST.bash; curl -sSL https://raw.githubusercontent.com/lsst/shebangtron/master/shebangtron | python
+RUN source ./loadLSST.bash; curl -sSL "$SHEBANGTRON_URL" | python
