@@ -17,6 +17,8 @@ LABEL EUPS_PRODUCTS=$EUPS_PRODUCTS \
     JENKINS_BUILD_ID=$JENKINS_BUILD_ID \
     JENKINS_BUILD_URL=$JENKINS_BUILD_URL
 
+SHELL ["/bin/bash", "-o", "pipefail", "-lc"]
+
 RUN source ./loadLSST.bash; for prod in $EUPS_PRODUCTS; do eups distrib install --no-server-tags -vvv "$prod" -t "$EUPS_TAG"; done \
   && ( find stack -exec strip --strip-unneeded --preserve-dates {} + \
        > /dev/null 2>&1 || true ) \
@@ -28,3 +30,5 @@ RUN source ./loadLSST.bash; for prod in $EUPS_PRODUCTS; do eups distrib install 
        > /dev/null 2>&1 || true )
 
 RUN source ./loadLSST.bash; curl -sSL "$SHEBANGTRON_URL" | python
+
+SHELL ["/bin/bash", "-lc"]
