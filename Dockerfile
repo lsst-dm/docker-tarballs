@@ -37,7 +37,7 @@ RUN source ./loadLSST.bash; for prod in $EUPS_PRODUCTS; do eups distrib install 
        > /dev/null 2>&1 || true ) \
   && ( find stack -maxdepth 5 -name tests -type d -exec rm -rf {} + \
        > /dev/null 2>&1 || true ) \
-  && ( find stack -maxdepth 5 -path "*doc/html" -type d -exec rm -rf {} + \
+  && ( find stack -maxdepth 6 \( -path "*doc/html" -o -path "*doc/xml" \) -type d -exec rm -rf {} + \
        > /dev/null 2>&1 || true ) \
   && ( find stack/ -maxdepth 5 -name src -type d -exec rm -rf {} + \
        > /dev/null 2>&1 || true )
