@@ -32,9 +32,7 @@ LABEL EUPS_PRODUCTS=$EUPS_PRODUCTS \
 
 SHELL ["/bin/bash", "-o", "pipefail", "-lc"]
 
-RUN source ./loadLSST.bash; \
-  conda install -y --no-update-deps rubin-env==$LSST_SPLENV_REF \
-  && for prod in $EUPS_PRODUCTS; do eups distrib install --no-server-tags -vvv "$prod" -t "$EUPS_TAG"; done \
+RUN source ./loadLSST.bash; for prod in $EUPS_PRODUCTS; do eups distrib install --no-server-tags -vvv "$prod" -t "$EUPS_TAG"; done \
   && ( find stack -exec strip --strip-unneeded --preserve-dates {} + \
        > /dev/null 2>&1 || true ) \
   && ( find stack -maxdepth 5 -name tests -type d -exec rm -rf {} + \
