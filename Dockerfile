@@ -35,6 +35,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-lc"]
 RUN <<EOF
   set -e
   source ./loadLSST.bash
+  mamba clean -a -y
   for prod in $EUPS_PRODUCTS; do
     eups distrib install --no-server-tags -vvv "$prod" -t "$EUPS_TAG"
   done
