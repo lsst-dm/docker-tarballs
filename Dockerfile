@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=lsstsqre/newinstall:latest
+ARG BASE_IMAGE=ghcr.io/lsst-dm/docker-newinstall:latest
 FROM $BASE_IMAGE
 
 ARG DOCKERFILE_GIT_BRANCH
