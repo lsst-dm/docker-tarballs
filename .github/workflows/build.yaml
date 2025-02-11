@@ -1,12 +1,7 @@
 name: Build
 
 on:
-  pull_request:
-  push:
-    branches:
-      - main
-    tags:
-      - "*"
+  workflow_dispatch:
 
 jobs:
   build:
@@ -20,4 +15,4 @@ jobs:
           push: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
           platforms: linux/amd64,linux/arm64
-          build-args: EUPS_TAG=test_2025_00
+          build-args: EUPS_TAG=w_2025_09
