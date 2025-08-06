@@ -2,17 +2,25 @@ name: Build
 
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Eups tag to use to build image'
+        required: true
+        default: 'w_latest'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+      - name: import_inputs
+        shell: bash
+        run: |
+          echo "tag=${{ github.event.inputs.tag }}" >> $GITHUB_ENV
       - name: Build and push
         uses: lsst-dm/build-and-push@main
         with:
           push: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
           platforms: linux/amd64,linux/arm64
-          build-args: EUPS_TAG=w_2025_09
+          build-args: EUPS_TAG=${{ env.tag }}
